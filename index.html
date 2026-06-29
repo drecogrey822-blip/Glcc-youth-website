@@ -7,152 +7,347 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ============================================
+           PASTEL THEME — Peach · Butter · Cream · Sky
+           ============================================ */
         :root {
-            --midnight-dark: #0f172a;
-            --midnight-light: #1e293b;
-            --cream-bg: #fdfbf7;
-            --cream-accent: #f5efe6;
-            --cream-dark: #e6dad0;
-            --text-dark: #0f172a;
-            --text-muted: #475569;
-            --white: #ffffff;
-            --danger: #dc2626;
+            --peach:        #f5c5a3;
+            --peach-deep:   #e8956d;
+            --peach-light:  #fde8d8;
+            --butter:       #f9e4a0;
+            --butter-light: #fdf4d0;
+            --sky:          #b8d4f0;
+            --sky-deep:     #7aabdb;
+            --cream-bg:     #fffdf9;
+            --cream-mid:    #fef6ec;
+            --cream-dark:   #f5dfc8;
+            --white:        #ffffff;
+            --text-dark:    #4a3728;
+            --text-muted:   #9a7b68;
+            --danger:       #e07070;
+            --success:      #6bc08a;
         }
+
+        /* ---- Reset & Base ---- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: var(--text-dark); line-height: 1.6; background-color: var(--cream-bg); }
+        body { font-family: 'Inter', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--cream-bg); -webkit-font-smoothing: antialiased; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* Navbar */
-        .navbar { position: fixed; top: 0; width: 100%; background-color: rgba(15,23,42,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 20px 0; border-bottom: 1px solid var(--midnight-light); }
+        /* ---- Navbar ---- */
+        .navbar {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: linear-gradient(90deg, #c45a1a 0%, #e8793a 50%, #f5a05a 100%);
+            padding: 16px 0;
+            border-bottom: 2px solid rgba(255,255,255,0.22);
+            box-shadow: 0 2px 20px rgba(196,90,26,0.3);
+            transition: box-shadow 0.3s ease;
+        }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { color: var(--white); font-size: 1.5rem; font-weight: 800; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
-        .logo span { color: var(--cream-accent); }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: 800; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.18); }
+        .logo span { color: #fff3d4; }
         .nav-right-wrap { display: flex; align-items: center; gap: 25px; }
         .nav-links { display: flex; list-style: none; }
         .nav-links li { margin-left: 25px; }
-        .nav-links a { color: var(--cream-accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s; }
-        .nav-links a:hover { opacity: 0.8; }
-        .nav-login-btn { padding: 8px 16px; background: #003366; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .nav-login-btn:hover { background: #002244; }
+        .nav-links a {
+            color: rgba(255,255,255,0.92); text-decoration: none; font-weight: 600;
+            position: relative; transition: color 0.25s ease;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px;
+            background: #fff3d4; border-radius: 2px;
+            transform: scaleX(0); transform-origin: center;
+            transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+        }
+        .nav-links a:hover { color: #fff3d4; }
+        .nav-links a:hover::after { transform: scaleX(1); }
+        .nav-login-btn {
+            padding: 8px 18px; background: rgba(255,255,255,0.2); color: white;
+            border: 1.5px solid rgba(255,255,255,0.5); border-radius: 6px;
+            font-weight: 700; cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+        }
+        .nav-login-btn:hover { background: rgba(255,255,255,0.36); border-color: white; transform: translateY(-1px); }
 
-        /* Hero */
-        .hero { height: 100vh; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); padding: 0 20px; position: relative; background-size: cover; background-position: center; background-repeat: no-repeat; }
-        .hero-overlay { position: absolute; inset: 0; background: rgba(15,23,42,0.65); }
-        .hero-content { max-width: 800px; position: relative; z-index: 1; }
-        .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; color: var(--white); }
-        .hero .highlight { color: var(--cream-accent); }
-        .hero p { font-size: 1.25rem; color: #94a3b8; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .btn { background-color: var(--cream-accent); color: var(--midnight-dark); padding: 14px 32px; text-decoration: none; font-weight: 600; border-radius: 8px; transition: background 0.3s, transform 0.2s; display: inline-block; }
-        .btn:hover { background-color: var(--white); transform: translateY(-2px); }
+        /* ---- Logo Badges ---- */
+        .logo-badge {
+            width: 42px; height: 42px; border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.34,1.4,0.64,1);
+            cursor: pointer;
+        }
+        .logo-badge img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .logo-badge:hover { border-color: #fff3d4; transform: scale(1.1); }
+        .logo-badge .badge-placeholder { font-size: 1.1rem; }
+        .logo-badge-label { font-size: 0.6rem; color: rgba(255,255,255,0.5); text-align: center; margin-top: 2px; display: none; }
+        .badge-wrap { display: flex; flex-direction: column; align-items: center; }
+        .badge-wrap:hover .logo-badge-label { display: block; }
+        .logo-upload-input { display: none; }
 
-        /* Inline Editable Text */
-        .editable-text[contenteditable="true"] { outline: 2px dashed rgba(255,255,255,0.5); border-radius: 4px; padding: 2px 6px; cursor: text; }
-        .editable-text[contenteditable="true"]:focus { outline: 2px solid #f5efe6; background: rgba(255,255,255,0.08); }
-        .editable-text-dark[contenteditable="true"] { outline: 2px dashed rgba(0,0,0,0.3); border-radius: 4px; padding: 2px 6px; cursor: text; }
-        .save-text-btn { background: #003366; color: white; border: none; border-radius: 4px; padding: 6px 14px; font-size: 0.8rem; font-weight: 600; cursor: pointer; margin-top: 8px; display: none; }
-        .save-text-btn:hover { background: #002244; }
-        .edit-hint { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 6px; display: none; }
-        .edit-hint-dark { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; display: none; text-align: center; }
+        /* ---- Hero ---- */
+        .hero {
+            height: 100vh; min-height: 600px;
+            background: hsla(25,57%,60%,1);
+            background: linear-gradient(135deg, hsla(25,57%,60%,1) 0%, hsla(26,100%,69%,1) 3%, hsla(210,84%,35%,1) 100%);
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #fff; padding: 80px 20px 40px;
+            position: relative; background-size: cover; background-position: center; background-repeat: no-repeat;
+        }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(15,50,100,0.28); }
+        .hero-content { max-width: 860px; position: relative; z-index: 1; }
+        .hero h1 { font-size: 3.4rem; font-weight: 800; line-height: 1.18; margin-bottom: 18px; color: #fff; }
+        .hero .highlight { color: var(--butter); text-shadow: 0 2px 22px rgba(249,228,160,0.4); }
+        .hero > .hero-content > p { font-size: 1.18rem; color: var(--peach-light); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn {
+            background: linear-gradient(135deg, var(--peach) 0%, var(--butter) 100%);
+            color: var(--text-dark); padding: 14px 34px; text-decoration: none;
+            font-weight: 700; border-radius: 10px; display: inline-block;
+            box-shadow: 0 4px 18px rgba(245,197,163,0.4);
+            transition: transform 0.25s cubic-bezier(0.34,1.3,0.64,1), box-shadow 0.25s ease;
+        }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(245,197,163,0.5); }
 
-        /* Sections */
-        section { padding: 100px 0; }
-        section h2 { text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; color: var(--midnight-dark); }
-        .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; }
+        /* ---- Vision & Mission ---- */
+        .vision-mission { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin: 32px 0 38px; }
+        .vm-card {
+            background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.32);
+            backdrop-filter: blur(10px); border-radius: 16px; padding: 26px 28px;
+            max-width: 320px; flex: 1 1 240px; text-align: left;
+            transition: transform 0.3s cubic-bezier(0.34,1.2,0.64,1), background 0.25s ease;
+        }
+        .vm-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.22); }
+        .vm-card .vm-icon { font-size: 1.5rem; margin-bottom: 10px; }
+        .vm-card h3 { font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--butter); margin-bottom: 8px; }
+        .vm-card p { font-size: 0.95rem; color: rgba(255,255,255,0.9); line-height: 1.65; }
 
-        /* Events Section */
-        .events-section { background-color: var(--cream-accent); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; }
-        .events-section-overlay { position: absolute; inset: 0; background: rgba(245,239,230,0.88); pointer-events: none; }
+        /* ---- Editable text ---- */
+        .editable-text[contenteditable="true"] { outline: 2px dashed rgba(249,228,160,0.6); border-radius: 4px; padding: 2px 6px; cursor: text; transition: outline 0.2s, background 0.2s; }
+        .editable-text[contenteditable="true"]:focus { outline: 2px solid var(--butter); background: rgba(249,228,160,0.1); }
+        .editable-text-dark[contenteditable="true"] { outline: 2px dashed rgba(245,197,163,0.5); border-radius: 4px; padding: 2px 6px; cursor: text; }
+        .editable-text-dark[contenteditable="true"]:focus { outline: 2px solid var(--peach); background: rgba(245,197,163,0.07); }
+        .save-text-btn { background: var(--sky-deep); color: white; border: none; border-radius: 5px; padding: 7px 16px; font-size: 0.82rem; font-weight: 700; cursor: pointer; margin-top: 8px; display: none; transition: background 0.25s, transform 0.2s; }
+        .save-text-btn:hover { background: var(--sky); color: var(--text-dark); transform: translateY(-1px); }
+        .edit-hint { font-size: 0.75rem; color: rgba(253,244,208,0.78); margin-top: 6px; display: none; }
+        .edit-hint-dark { font-size: 0.75rem; color: var(--peach-deep); margin-top: 6px; display: none; text-align: center; }
+        .bg-change-btn { background: rgba(249,228,160,0.18); color: var(--butter); border: 1px solid rgba(249,228,160,0.45); padding: 7px 14px; border-radius: 5px; font-size: 0.82rem; cursor: pointer; margin-top: 10px; display: none; transition: background 0.25s; }
+        .bg-change-btn:hover { background: rgba(249,228,160,0.32); }
+
+        /* ---- Sections ---- */
+        section { padding: 96px 0; }
+        section h2 { text-align: center; font-size: 2.4rem; font-weight: 800; margin-bottom: 10px; color: var(--peach-deep); transition: color 0.2s; }
+        .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 28px; font-size: 1.04rem; }
+
+        /* ---- Events Section ---- */
+        .events-section { background-color: var(--cream-mid); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; }
+        .events-section-overlay { position: absolute; inset: 0; background: rgba(254,246,236,0.91); pointer-events: none; }
         .events-section .container { position: relative; z-index: 1; }
-        .admin-controls-wrapper { text-align: center; margin-bottom: 30px; display: none; }
-        .admin-btn { background-color: #003366; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem; margin: 5px; }
-        .admin-btn:hover { background-color: #002244; }
-        .admin-btn.secondary { background-color: #4a5568; }
-        .admin-btn.secondary:hover { background-color: #2d3748; }
-        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .event-card { background: var(--white); border-radius: 12px; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(15,23,42,0.05); transition: transform 0.3s; border: 1px solid var(--cream-dark); display: flex; flex-direction: column; }
-        .event-card:hover { transform: translateY(-5px); }
-        .event-image-wrapper { width: 100%; position: relative; background-color: var(--midnight-dark); }
-        .event-image-wrapper img { width: 100%; height: auto; display: block; object-fit: contain; }
-        .event-text-fallback { padding: 30px 20px; }
-        .event-text-fallback h3 { color: var(--midnight-dark); margin-bottom: 8px; }
-        .delete-btn { position: absolute; background: rgba(15,23,42,0.85); border: none; color: var(--white); cursor: pointer; font-size: 1rem; display: none; z-index: 10; padding: 8px 12px; border-radius: 6px; transition: background 0.2s; }
-        .delete-btn:hover { background: var(--danger); }
-        .delete-event-btn { top: 15px; right: 15px; }
-        .delete-worker-btn { top: 10px; right: 10px; background: rgba(15,23,42,0.7); color: #fff; border-radius: 50%; width: 32px; height: 32px; font-size: 0.85rem; display: none; align-items: center; justify-content: center; padding: 0; border: none; cursor: pointer; z-index: 10; position: absolute; }
-        .delete-worker-btn:hover { background: var(--danger); }
-        .edit-worker-btn { top: 10px; left: 10px; background: rgba(0,51,102,0.8); color: #fff; border-radius: 50%; width: 32px; height: 32px; font-size: 0.85rem; display: none; align-items: center; justify-content: center; padding: 0; border: none; cursor: pointer; z-index: 10; position: absolute; }
-        .edit-worker-btn:hover { background: #003366; }
 
-        /* Team Section */
-        .team-section { background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; }
-        .team-section-overlay { position: absolute; inset: 0; background: rgba(253,251,247,0.88); pointer-events: none; }
+        .admin-controls-wrapper { text-align: center; margin-bottom: 28px; display: none; }
+        .admin-btn { background: var(--peach); color: var(--text-dark); padding: 10px 22px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.94rem; margin: 5px; box-shadow: 0 2px 8px rgba(245,197,163,0.35); transition: background 0.25s ease, transform 0.2s cubic-bezier(0.34,1.3,0.64,1), color 0.2s, box-shadow 0.25s; }
+        .admin-btn:hover { background: var(--peach-deep); color: white; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(232,149,109,0.35); }
+        .admin-btn.secondary { background: var(--sky); box-shadow: 0 2px 8px rgba(184,212,240,0.35); }
+        .admin-btn.secondary:hover { background: var(--sky-deep); color: white; box-shadow: 0 6px 16px rgba(122,171,219,0.35); }
+
+        /* Events grid */
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+        .event-card {
+            background: var(--white); border-radius: 16px; position: relative; overflow: hidden;
+            border: 1px solid var(--cream-dark); display: flex; flex-direction: column;
+            box-shadow: 0 4px 18px rgba(245,197,163,0.12);
+            transition: transform 0.35s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.35s ease;
+            opacity: 0; transform: translateY(24px);
+        }
+        .event-card.visible { opacity: 1; transform: translateY(0); }
+        .event-card:hover { transform: translateY(-7px); box-shadow: 0 16px 40px rgba(245,197,163,0.28); }
+        .event-image-wrapper { width: 100%; position: relative; background-color: var(--cream-mid); cursor: zoom-in; overflow: hidden; }
+        .event-image-wrapper img { width: 100%; height: auto; display: block; object-fit: contain; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease; }
+        .event-card:hover .event-image-wrapper img { transform: scale(1.04); filter: brightness(1.03); }
+        .event-text-fallback { padding: 28px 20px; }
+        .event-text-fallback h3 { color: var(--peach-deep); margin-bottom: 8px; }
+
+        .delete-btn { position: absolute; background: rgba(90,62,53,0.8); border: none; color: #fff; cursor: pointer; font-size: 0.9rem; display: none; z-index: 10; padding: 7px 12px; border-radius: 6px; transition: background 0.25s, transform 0.2s; }
+        .delete-btn:hover { background: var(--danger); transform: scale(1.04); }
+        .delete-event-btn { top: 12px; right: 12px; }
+        .delete-worker-btn { top: 10px; right: 10px; background: rgba(90,62,53,0.7); color: #fff; border-radius: 50%; width: 32px; height: 32px; font-size: 0.82rem; display: none; align-items: center; justify-content: center; padding: 0; border: none; cursor: pointer; z-index: 10; position: absolute; transition: background 0.25s, transform 0.2s; }
+        .delete-worker-btn:hover { background: var(--danger); transform: scale(1.08); }
+        .edit-worker-btn { top: 10px; left: 10px; background: rgba(122,171,219,0.85); color: #fff; border-radius: 50%; width: 32px; height: 32px; font-size: 0.82rem; display: none; align-items: center; justify-content: center; padding: 0; border: none; cursor: pointer; z-index: 10; position: absolute; transition: background 0.25s, transform 0.2s; }
+        .edit-worker-btn:hover { background: var(--sky-deep); transform: scale(1.08); }
+
+        /* ---- Team Section ---- */
+        .team-section { background-color: var(--cream-bg); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; }
+        .team-section-overlay { position: absolute; inset: 0; background: rgba(255,253,249,0.91); pointer-events: none; }
         .team-section .container { position: relative; z-index: 1; }
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 28px; }
 
-        /* Flipping Cards */
-        .card-container { perspective: 1000px; height: 420px; position: relative; }
-        .card-flipper { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+        /* ---- Flip Cards ---- */
+        .card-container {
+            perspective: 1000px; height: 430px; position: relative;
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.2,0.64,1);
+        }
+        .card-container.visible { opacity: 1; transform: translateY(0); }
+        .card-flipper { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.65s cubic-bezier(0.4,0,0.2,1); }
         .card-checkbox { display: none; }
         .card-checkbox:checked + .card-flipper { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 12px; border: 1px solid var(--cream-dark); box-shadow: 0 4px 12px rgba(15,23,42,0.04); display: flex; flex-direction: column; overflow: hidden; }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 14px; border: 1px solid var(--cream-dark); box-shadow: 0 4px 16px rgba(245,197,163,0.1); display: flex; flex-direction: column; overflow: hidden; transition: box-shadow 0.35s ease; }
+        .card-container:hover .card-front, .card-container:hover .card-back { box-shadow: 0 10px 30px rgba(245,197,163,0.22); }
         .card-front { background: var(--white); }
-        .card-header { background-color: var(--midnight-dark); height: 60px; width: 100%; flex-shrink: 0; }
-        .avatar-wrapper { width: 90px; height: 90px; border-radius: 50%; margin: -45px auto 16px; border: 4px solid var(--white); overflow: hidden; background-color: var(--cream-accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; position: relative; }
+        .card-header { background: linear-gradient(135deg, var(--peach) 0%, var(--butter) 60%, var(--sky) 100%); height: 64px; width: 100%; flex-shrink: 0; }
+        .avatar-wrapper { width: 92px; height: 92px; border-radius: 50%; margin: -46px auto 14px; border: 4px solid var(--white); overflow: hidden; background-color: var(--butter-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; position: relative; box-shadow: 0 2px 10px rgba(184,212,240,0.3); transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s ease; }
+        .avatar-wrapper:hover { transform: scale(1.07); box-shadow: 0 6px 20px rgba(184,212,240,0.45); }
         .avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        .avatar-wrapper .avatar-icon { font-size: 2rem; color: var(--midnight-dark); }
-        .avatar-wrapper .avatar-upload-hint { display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.5); color: white; font-size: 0.65rem; align-items: center; justify-content: center; text-align: center; border-radius: 50%; }
+        .avatar-wrapper .avatar-icon { font-size: 2rem; color: var(--peach-deep); }
+        .avatar-wrapper .avatar-upload-hint { display: none; position: absolute; inset: 0; background: rgba(90,62,53,0.52); color: white; font-size: 0.65rem; align-items: center; justify-content: center; text-align: center; border-radius: 50%; }
         .avatar-wrapper:hover .avatar-upload-hint { display: flex; }
-        .profile-info { padding: 0 20px; text-align: center; flex-grow: 1; }
-        .profile-info h3 { font-size: 1.25rem; color: var(--midnight-dark); margin-bottom: 4px; }
-        .profile-info .role { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; }
-        .profile-info .phone { font-size: 0.95rem; color: var(--midnight-dark); margin-bottom: 20px; display: inline-block; }
-        .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        .social-links a { color: var(--midnight-dark); font-size: 1.3rem; transition: opacity 0.2s; }
-        .social-links a:hover { opacity: 0.7; }
-        .card-back { background: var(--cream-accent); transform: rotateY(180deg); padding: 24px; text-align: center; }
-        .card-back h3 { font-size: 1.2rem; color: var(--midnight-dark); margin-bottom: 15px; border-bottom: 2px solid var(--cream-dark); padding-bottom: 8px; }
-        .schedule-list { list-style: none; text-align: left; margin-bottom: 20px; flex-grow: 1; }
-        .schedule-list li { display: flex; justify-content: space-between; font-size: 0.9rem; padding: 6px 0; border-bottom: 1px dashed var(--cream-dark); }
-        .schedule-list li span.day { font-weight: 600; color: var(--midnight-dark); }
+        .profile-info { padding: 0 18px; text-align: center; flex-grow: 1; }
+        .profile-info h3 { font-size: 1.18rem; color: var(--text-dark); margin-bottom: 3px; }
+        .profile-info .role { font-size: 0.82rem; color: var(--peach-deep); font-weight: 700; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.6px; }
+        .profile-info .phone { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 16px; display: inline-block; }
+        .social-links { display: flex; justify-content: center; gap: 18px; margin-bottom: 18px; }
+        .social-links a { color: var(--sky-deep); font-size: 1.3rem; transition: color 0.25s ease, transform 0.25s cubic-bezier(0.34,1.4,0.64,1); }
+        .social-links a:hover { color: var(--peach-deep); transform: scale(1.18); }
+        .card-back { background: linear-gradient(160deg, var(--cream-mid) 0%, var(--butter-light) 100%); transform: rotateY(180deg); padding: 24px; text-align: center; }
+        .card-back h3 { font-size: 1.12rem; color: var(--peach-deep); margin-bottom: 14px; border-bottom: 2px solid var(--peach-light); padding-bottom: 8px; }
+        .schedule-list { list-style: none; text-align: left; margin-bottom: 18px; flex-grow: 1; }
+        .schedule-list li { display: flex; justify-content: space-between; font-size: 0.9rem; padding: 7px 0; border-bottom: 1px dashed var(--cream-dark); }
+        .schedule-list li span.day { font-weight: 700; color: var(--peach-deep); }
         .schedule-list li span.time { color: var(--text-muted); }
-        .flip-btn { display: block; background-color: var(--midnight-dark); color: var(--white); padding: 10px 0; width: 100%; text-align: center; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; border: none; text-transform: uppercase; letter-spacing: 0.5px; }
-        .flip-btn:hover { background-color: var(--midnight-light); }
-        .flip-btn.back-btn { background-color: transparent; color: var(--midnight-dark); border: 2px solid var(--midnight-dark); border-radius: 6px; margin-top: auto; }
-        .flip-btn.back-btn:hover { background-color: var(--midnight-dark); color: var(--white); }
+        .flip-btn { display: block; background: linear-gradient(90deg, var(--peach) 0%, var(--butter) 100%); color: var(--text-dark); padding: 11px 0; width: 100%; text-align: center; font-weight: 700; font-size: 0.88rem; cursor: pointer; border: none; text-transform: uppercase; letter-spacing: 0.5px; transition: opacity 0.25s ease, filter 0.25s ease; }
+        .flip-btn:hover { opacity: 0.82; filter: brightness(1.04); }
+        .flip-btn.back-btn { background: transparent; color: var(--peach-deep); border: 2px solid var(--peach-deep); border-radius: 7px; margin-top: auto; transition: background 0.25s ease, color 0.25s ease; }
+        .flip-btn.back-btn:hover { background: var(--peach); color: var(--text-dark); }
 
-        /* Modals */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 9999; justify-content: center; align-items: center; }
-        .modal-content { background: #ffffff; padding: 30px; border-radius: 8px; max-width: 450px; width: 90%; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.2); color: #333333; max-height: 90vh; overflow-y: auto; }
-        .modal-content h2 { margin-bottom: 6px; }
-        .modal-content > p { margin-bottom: 16px; color: #555; font-size: 0.9rem; }
-        .close-button { position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: bold; color: #888; cursor: pointer; }
-        .close-button:hover { color: #333; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; font-family: inherit; }
+        /* ---- Modals ---- */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(90,62,53,0.45); backdrop-filter: blur(6px);
+            z-index: 9999; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.is-open { display: flex; }
+        .modal-overlay.is-visible { opacity: 1; }
+        .modal-content {
+            background: var(--white); padding: 30px; border-radius: 16px;
+            max-width: 460px; width: 90%; position: relative;
+            box-shadow: 0 12px 50px rgba(245,197,163,0.3);
+            color: var(--text-dark); max-height: 90vh; overflow-y: auto;
+            border-top: 4px solid var(--peach);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34,1.28,0.64,1), opacity 0.3s ease;
+            opacity: 0;
+        }
+        .modal-overlay.is-visible .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+        .modal-content h2 { margin-bottom: 6px; color: var(--peach-deep); }
+        .modal-content > p { margin-bottom: 16px; color: var(--text-muted); font-size: 0.9rem; }
+        .close-button { position: absolute; top: 14px; right: 18px; font-size: 26px; font-weight: bold; color: #bbb; cursor: pointer; transition: color 0.2s, transform 0.2s; line-height: 1; }
+        .close-button:hover { color: var(--peach-deep); transform: rotate(90deg); }
+        .form-group { margin-bottom: 14px; text-align: left; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 5px; font-size: 13px; color: var(--peach-deep); }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1.5px solid var(--cream-dark); border-radius: 7px; font-size: 14px; font-family: inherit; background: var(--cream-bg); transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.2s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--peach); background: var(--white); box-shadow: 0 0 0 3px rgba(245,197,163,0.22); }
         .form-group textarea { resize: vertical; min-height: 70px; }
-        .submit-btn { width: 100%; padding: 12px; background: #003366; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .submit-btn:disabled { background: #cccccc; cursor: not-allowed; }
-        .submit-btn:hover:not(:disabled) { background: #002244; }
-        .error-msg { color: #cc0000; font-size: 14px; margin-top: 10px; text-align: center; }
-        .avatar-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 8px auto 0; display: block; border: 2px solid #ccc; }
+        .submit-btn { width: 100%; padding: 13px; background: linear-gradient(135deg, var(--peach) 0%, var(--butter) 100%); color: var(--text-dark); border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 14px rgba(245,197,163,0.3); transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34,1.3,0.64,1), box-shadow 0.25s ease; }
+        .submit-btn:disabled { background: #ddd; box-shadow: none; cursor: not-allowed; color: #aaa; }
+        .submit-btn:hover:not(:disabled) { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(245,197,163,0.4); }
+        .error-msg { color: var(--danger); font-size: 14px; margin-top: 10px; text-align: center; }
+        .avatar-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 8px auto 0; display: block; border: 3px solid var(--peach-light); }
 
-        /* Background picker */
-        .bg-change-btn { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; margin-top: 10px; display: none; }
-        .bg-change-btn:hover { background: rgba(255,255,255,0.25); }
-        .bg-change-btn-dark { background: rgba(0,0,0,0.08); color: var(--midnight-dark); border: 1px solid rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; margin: 0 auto 16px; display: none; }
-        .bg-change-btn-dark:hover { background: rgba(0,0,0,0.15); }
+        /* ---- Toast Notification ---- */
+        #toast-container { position: fixed; bottom: 28px; right: 28px; z-index: 99998; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .toast {
+            display: flex; align-items: center; gap: 10px;
+            padding: 14px 20px; border-radius: 12px; font-size: 0.92rem; font-weight: 600;
+            color: white; min-width: 240px; max-width: 340px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+            pointer-events: auto;
+            opacity: 0; transform: translateX(40px) scale(0.94);
+            transition: opacity 0.38s cubic-bezier(0.34,1.28,0.64,1),
+                        transform 0.38s cubic-bezier(0.34,1.28,0.64,1);
+        }
+        .toast.show { opacity: 1; transform: translateX(0) scale(1); }
+        .toast.hide { opacity: 0; transform: translateX(40px) scale(0.9); }
+        .toast.success { background: linear-gradient(135deg, #5cba7d 0%, #3da65a 100%); }
+        .toast.error   { background: linear-gradient(135deg, #e07070 0%, #c94f4f 100%); }
+        .toast.info    { background: linear-gradient(135deg, var(--sky-deep) 0%, #5590c9 100%); }
+        .toast-icon { font-size: 1.15rem; flex-shrink: 0; }
 
-        footer { background-color: var(--midnight-dark); color: var(--cream-accent); text-align: center; padding: 40px 20px; font-size: 0.9rem; border-top: 1px solid var(--midnight-light); }
-        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } .nav-links { display: none; } }
+        /* ---- Lightbox ---- */
+        #lightbox {
+            position: fixed; inset: 0; z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(12,8,4,0); backdrop-filter: blur(0px);
+            cursor: zoom-out; pointer-events: none;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease;
+        }
+        #lightbox.open { background: rgba(12,8,4,0.88); backdrop-filter: blur(16px); pointer-events: all; }
+        .lightbox-wrap {
+            position: relative;
+            opacity: 0; transform: scale(0.8) translateY(20px);
+            transition: opacity 0.42s cubic-bezier(0.34,1.28,0.64,1),
+                        transform 0.42s cubic-bezier(0.34,1.28,0.64,1);
+        }
+        #lightbox.open .lightbox-wrap { opacity: 1; transform: scale(1) translateY(0); }
+        #lightbox-img { display: block; max-width: 88vw; max-height: 86vh; border-radius: 14px; box-shadow: 0 28px 80px rgba(0,0,0,0.5); object-fit: contain; }
+        .lightbox-close {
+            position: absolute; top: -15px; right: -15px;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35);
+            color: white; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(6px);
+            transition: background 0.2s, transform 0.25s cubic-bezier(0.34,1.4,0.64,1);
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.3); transform: scale(1.15) rotate(90deg); }
+        .lightbox-caption { position: absolute; bottom: -36px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,0.65); font-size: 0.86rem; }
+
+        /* ---- Background change buttons ---- */
+        .bg-change-btn { background: rgba(249,228,160,0.18); color: var(--butter); border: 1px solid rgba(249,228,160,0.45); padding: 7px 14px; border-radius: 5px; font-size: 0.82rem; cursor: pointer; margin-top: 10px; display: none; transition: background 0.25s; }
+        .bg-change-btn:hover { background: rgba(249,228,160,0.32); }
+        .bg-change-btn-dark { background: rgba(245,197,163,0.14); color: var(--peach-deep); border: 1px solid rgba(245,197,163,0.38); padding: 7px 14px; border-radius: 5px; font-size: 0.82rem; cursor: pointer; margin: 0 auto 14px; display: none; transition: background 0.25s; }
+        .bg-change-btn-dark:hover { background: rgba(245,197,163,0.26); }
+
+        /* ---- Footer ---- */
+        footer { background: linear-gradient(90deg, #c45a1a 0%, #e8793a 50%, #f5a05a 100%); color: rgba(255,255,255,0.92); text-align: center; padding: 40px 20px; font-size: 0.9rem; border-top: 2px solid rgba(255,255,255,0.22); box-shadow: 0 -2px 18px rgba(196,90,26,0.22); }
+
+        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } .nav-links { display: none; } #toast-container { bottom: 16px; right: 16px; } }
     </style>
 </head>
 <body>
 
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-wrap">
+            <button class="lightbox-close" onclick="closeLightbox(null,true)"><i class="fa-solid fa-xmark"></i></button>
+            <img id="lightbox-img" src="" alt="">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">GLCC Youth<span> MINISTRY</span></a>
+            <div style="display:flex;align-items:center;gap:14px;">
+                <div class="badge-wrap">
+                    <div class="logo-badge" id="church-logo-badge" title="Church Logo">
+                        <img id="church-logo-img" src="" alt="Church" style="display:none;">
+                        <span id="church-logo-ph" class="badge-placeholder">⛪</span>
+                    </div>
+                    <span class="logo-badge-label">Church</span>
+                </div>
+                <div class="badge-wrap">
+                    <div class="logo-badge" id="ministry-logo-badge" title="Ministry Logo">
+                        <img id="ministry-logo-img" src="" alt="Ministry" style="display:none;">
+                        <span id="ministry-logo-ph" class="badge-placeholder">✝️</span>
+                    </div>
+                    <span class="logo-badge-label">Ministry</span>
+                </div>
+                <a href="#" class="logo">GLCC Youth<span>.MIN</span></a>
+            </div>
             <div class="nav-right-wrap">
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
@@ -163,59 +358,72 @@
             </div>
         </div>
     </nav>
+    <input type="file" id="church-logo-input" accept="image/*" class="logo-upload-input">
+    <input type="file" id="ministry-logo-input" accept="image/*" class="logo-upload-input">
 
-    <!-- HOME TAB -->
+    <!-- HOME -->
     <header id="home" class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="editable-text" id="hero-title">Welcome to the <br><span class="highlight">GLCC Youth Ministry</span></h1>
             <p class="editable-text" id="hero-subtitle">A community of young believers chasing after God's heart. No matter where you are on your journey, you belong here.</p>
-            <a href="#events" class="btn">See Upcoming Events</a>
-            <br>
+            <div class="vision-mission">
+                <div class="vm-card">
+                    <div class="vm-icon">👁️</div>
+                    <h3>Our Vision</h3>
+                    <p class="editable-text" id="vision-text">To raise a generation of passionate, faith-driven young people who impact their communities and reflect God's love.</p>
+                </div>
+                <div class="vm-card">
+                    <div class="vm-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p class="editable-text" id="mission-text">To create a safe and Spirit-led space where youth are discipled, equipped, and empowered to live out their God-given purpose.</p>
+                </div>
+            </div>
+            <a href="#events" class="btn">See Upcoming Events</a><br>
             <button class="bg-change-btn" id="home-bg-btn"><i class="fa-solid fa-image"></i> Change Background</button>
-            <p class="edit-hint" id="home-edit-hint">✏️ Click on the title or text above to edit it</p>
+            <p class="edit-hint" id="home-edit-hint">✏️ Click any text above to edit it</p>
             <button class="save-text-btn" id="save-home-text-btn">💾 Save Text Changes</button>
         </div>
     </header>
     <input type="file" id="home-bg-input" accept="image/*" style="display:none;">
 
-    <!-- EVENTS TAB -->
+    <!-- EVENTS -->
     <section id="events" class="events-section">
         <div class="events-section-overlay"></div>
         <div class="container">
             <h2 class="editable-text-dark" id="events-title">Upcoming Events</h2>
             <p class="section-subtitle editable-text-dark" id="events-subtitle">Take a look at what we have planned next!</p>
-            <div id="events-admin-controls" class="admin-controls-wrapper" style="flex-direction:column; align-items:center;">
+            <div id="events-admin-controls" class="admin-controls-wrapper" style="flex-direction:column;align-items:center;">
                 <div>
                     <button id="open-add-event-btn" class="admin-btn"><i class="fa-solid fa-file-image"></i> Upload Event Flyer</button>
                     <button class="admin-btn secondary" id="events-bg-btn"><i class="fa-solid fa-image"></i> Change Background</button>
                 </div>
-                <p class="edit-hint-dark" id="events-edit-hint">✏️ Click on the headings above to edit them</p>
-                <button class="save-text-btn" id="save-events-text-btn" style="color:#333; background:#003366;">💾 Save Text Changes</button>
+                <p class="edit-hint-dark" id="events-edit-hint">✏️ Click on the headings to edit them</p>
+                <button class="save-text-btn" id="save-events-text-btn">💾 Save Text Changes</button>
             </div>
             <div id="events-grid" class="events-grid">
-                <p style="text-align:center; grid-column: 1/-1; color: var(--text-muted);">Loading live event details...</p>
+                <p style="text-align:center;grid-column:1/-1;color:var(--text-muted);">Loading events...</p>
             </div>
         </div>
     </section>
     <input type="file" id="events-bg-input" accept="image/*" style="display:none;">
 
-    <!-- TEAM/PROFILE TAB -->
+    <!-- TEAM -->
     <section id="team" class="team-section">
         <div class="team-section-overlay"></div>
         <div class="container">
             <h2 class="editable-text-dark" id="team-title">Meet Our Workers</h2>
             <p class="section-subtitle editable-text-dark" id="team-subtitle">The amazing team serving our youth generation. Click a card to see their schedule.</p>
-            <div id="worker-admin-controls" class="admin-controls-wrapper" style="flex-direction:column; align-items:center;">
+            <div id="worker-admin-controls" class="admin-controls-wrapper" style="flex-direction:column;align-items:center;">
                 <div>
                     <button id="open-add-worker-btn" class="admin-btn"><i class="fa-solid fa-user-plus"></i> Add Worker Profile</button>
                     <button class="admin-btn secondary" id="team-bg-btn"><i class="fa-solid fa-image"></i> Change Background</button>
                 </div>
-                <p class="edit-hint-dark" id="team-edit-hint">✏️ Click on the headings above to edit them</p>
-                <button class="save-text-btn" id="save-team-text-btn" style="color:#333; background:#003366;">💾 Save Text Changes</button>
+                <p class="edit-hint-dark" id="team-edit-hint">✏️ Click on the headings to edit them</p>
+                <button class="save-text-btn" id="save-team-text-btn">💾 Save Text Changes</button>
             </div>
             <div id="team-grid" class="team-grid">
-                <p style="text-align:center; grid-column: 1/-1; color: var(--text-muted);">Loading worker profiles...</p>
+                <p style="text-align:center;grid-column:1/-1;color:var(--text-muted);">Loading workers...</p>
             </div>
         </div>
     </section>
@@ -224,11 +432,11 @@
     <!-- LOGIN MODAL -->
     <div id="login-modal" class="modal-overlay">
       <div class="modal-content">
-        <span id="close-login-btn" class="close-button">&times;</span>
+        <span class="close-button" onclick="closeModal('login-modal')">&times;</span>
         <h2>Worker Portal</h2>
-        <p>Sign in to manage your youth ministry schedule and events.</p>
+        <p>Sign in to manage your youth ministry.</p>
         <form id="login-form">
-          <div class="form-group"><label>Email Address</label><input type="email" id="login-email" required placeholder="worker@church.com"></div>
+          <div class="form-group"><label>Email</label><input type="email" id="login-email" required placeholder="worker@church.com"></div>
           <div class="form-group"><label>Password</label><input type="password" id="login-password" required placeholder="••••••••"></div>
           <button type="submit" class="submit-btn">Sign In</button>
           <div id="login-error" class="error-msg"></div>
@@ -239,13 +447,13 @@
     <!-- ADD EVENT MODAL -->
     <div id="add-event-modal" class="modal-overlay">
       <div class="modal-content">
-        <span id="close-event-modal-btn" class="close-button">&times;</span>
-        <h2>Upload Event Image</h2>
-        <p>Upload a flyer graphic or poster to publish to the dashboard.</p>
+        <span class="close-button" onclick="closeModal('add-event-modal')">&times;</span>
+        <h2>Upload Event Flyer</h2>
+        <p>Upload a flyer image to publish to the dashboard.</p>
         <form id="add-event-form">
-          <div class="form-group"><label>Event Title/Label</label><input type="text" id="event-title" required placeholder="e.g. Friday Fellowship Camp"></div>
-          <div class="form-group"><label>Select Flyer Image (PNG, JPG)</label><input type="file" id="event-file" accept="image/*" required></div>
-          <button type="submit" id="submit-event-btn" class="submit-btn">Upload & Publish Flyer</button>
+          <div class="form-group"><label>Event Title</label><input type="text" id="event-title" required placeholder="e.g. Friday Fellowship Camp"></div>
+          <div class="form-group"><label>Flyer Image (PNG/JPG)</label><input type="file" id="event-file" accept="image/*" required></div>
+          <button type="submit" id="submit-event-btn" class="submit-btn">Upload & Publish</button>
         </form>
       </div>
     </div>
@@ -253,23 +461,19 @@
     <!-- ADD WORKER MODAL -->
     <div id="add-worker-modal" class="modal-overlay">
       <div class="modal-content">
-        <span id="close-worker-modal-btn" class="close-button">&times;</span>
-        <h2>Add New Worker Profile</h2>
-        <p>Fill out the profile data and availability below.</p>
+        <span class="close-button" onclick="closeModal('add-worker-modal')">&times;</span>
+        <h2>Add Worker Profile</h2>
+        <p>Fill out the profile and availability below.</p>
         <form id="add-worker-form">
           <div class="form-group"><label>Full Name</label><input type="text" id="worker-name" required placeholder="John Doe"></div>
-          <div class="form-group"><label>Role Description</label><input type="text" id="worker-role" placeholder="Youth Worker" value="Youth Worker"></div>
-          <div class="form-group"><label>Phone Number</label><input type="text" id="worker-phone" placeholder="+1 (555) 000-0000"></div>
-          <div class="form-group"><label>Instagram URL</label><input type="url" id="worker-instagram" placeholder="https://instagram.com/yourhandle"></div>
-          <div class="form-group"><label>Facebook URL</label><input type="url" id="worker-facebook" placeholder="https://facebook.com/yourprofile"></div>
-          <div class="form-group"><label>Monday Availability</label><input type="text" id="worker-mon" placeholder="2:00 PM - 5:00 PM"></div>
-          <div class="form-group"><label>Wednesday Availability</label><input type="text" id="worker-wed" placeholder="4:00 PM - 7:00 PM"></div>
-          <div class="form-group"><label>Friday Availability</label><input type="text" id="worker-fri" placeholder="5:00 PM - 9:00 PM"></div>
-          <div class="form-group">
-            <label>Profile Photo (optional)</label>
-            <input type="file" id="worker-photo" accept="image/*">
-            <img id="worker-photo-preview" class="avatar-preview" style="display:none;">
-          </div>
+          <div class="form-group"><label>Role</label><input type="text" id="worker-role" value="Youth Worker"></div>
+          <div class="form-group"><label>Phone</label><input type="text" id="worker-phone" placeholder="+63 912 345 6789"></div>
+          <div class="form-group"><label>Instagram URL</label><input type="url" id="worker-instagram" placeholder="https://instagram.com/handle"></div>
+          <div class="form-group"><label>Facebook URL</label><input type="url" id="worker-facebook" placeholder="https://facebook.com/profile"></div>
+          <div class="form-group"><label>Monday</label><input type="text" id="worker-mon" placeholder="2:00 PM – 5:00 PM"></div>
+          <div class="form-group"><label>Wednesday</label><input type="text" id="worker-wed" placeholder="4:00 PM – 7:00 PM"></div>
+          <div class="form-group"><label>Friday</label><input type="text" id="worker-fri" placeholder="5:00 PM – 9:00 PM"></div>
+          <div class="form-group"><label>Profile Photo (optional)</label><input type="file" id="worker-photo" accept="image/*"><img id="worker-photo-preview" class="avatar-preview" style="display:none;"></div>
           <button type="submit" class="submit-btn">Save Profile</button>
         </form>
       </div>
@@ -278,468 +482,482 @@
     <!-- EDIT WORKER MODAL -->
     <div id="edit-worker-modal" class="modal-overlay">
       <div class="modal-content">
-        <span id="close-edit-worker-btn" class="close-button">&times;</span>
+        <span class="close-button" onclick="closeModal('edit-worker-modal')">&times;</span>
         <h2>Edit Worker Profile</h2>
-        <p>Update details for this worker.</p>
+        <p>Update this worker's details.</p>
         <form id="edit-worker-form">
           <input type="hidden" id="edit-worker-id">
           <input type="hidden" id="edit-worker-old-photo">
           <div class="form-group"><label>Full Name</label><input type="text" id="edit-worker-name" required></div>
-          <div class="form-group"><label>Role Description</label><input type="text" id="edit-worker-role"></div>
-          <div class="form-group"><label>Phone Number</label><input type="text" id="edit-worker-phone"></div>
-          <div class="form-group"><label>Instagram URL</label><input type="url" id="edit-worker-instagram" placeholder="https://instagram.com/yourhandle"></div>
-          <div class="form-group"><label>Facebook URL</label><input type="url" id="edit-worker-facebook" placeholder="https://facebook.com/yourprofile"></div>
-          <div class="form-group"><label>Monday Availability</label><input type="text" id="edit-worker-mon"></div>
-          <div class="form-group"><label>Wednesday Availability</label><input type="text" id="edit-worker-wed"></div>
-          <div class="form-group"><label>Friday Availability</label><input type="text" id="edit-worker-fri"></div>
-          <div class="form-group">
-            <label>Change Profile Photo (optional)</label>
-            <input type="file" id="edit-worker-photo" accept="image/*">
-            <img id="edit-worker-photo-preview" class="avatar-preview" style="display:none;">
-          </div>
+          <div class="form-group"><label>Role</label><input type="text" id="edit-worker-role"></div>
+          <div class="form-group"><label>Phone</label><input type="text" id="edit-worker-phone"></div>
+          <div class="form-group"><label>Instagram URL</label><input type="url" id="edit-worker-instagram" placeholder="https://instagram.com/handle"></div>
+          <div class="form-group"><label>Facebook URL</label><input type="url" id="edit-worker-facebook" placeholder="https://facebook.com/profile"></div>
+          <div class="form-group"><label>Monday</label><input type="text" id="edit-worker-mon"></div>
+          <div class="form-group"><label>Wednesday</label><input type="text" id="edit-worker-wed"></div>
+          <div class="form-group"><label>Friday</label><input type="text" id="edit-worker-fri"></div>
+          <div class="form-group"><label>Change Photo (optional)</label><input type="file" id="edit-worker-photo" accept="image/*"><img id="edit-worker-photo-preview" class="avatar-preview" style="display:none;"></div>
           <button type="submit" id="save-edit-worker-btn" class="submit-btn">Save Changes</button>
         </form>
       </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Youth Ministry. All Rights Reserved.</p>
-    </footer>
+    <footer><p>&copy; 2026 GLCC Youth Ministry. All Rights Reserved.</p></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = "https://srqiqyixahvzlwlrneqi.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_pEIMkmgGqy6-upaMcYJ4GQ_W1WdBchQ";
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const SUPABASE_URL     = "https://srqiqyixahvzlwlrneqi.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_pEIMkmgGqy6-upaMcYJ4GQ_W1WdBchQ";
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let currentUser = null;
 
-        let currentWorkerUser = null;
+    /* =============================================
+       TOAST NOTIFICATION SYSTEM
+       ============================================= */
+    function showToast(message, type = 'success', duration = 3500) {
+        const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${message}</span>`;
+        container.appendChild(toast);
+        requestAnimationFrame(() => requestAnimationFrame(() => toast.classList.add('show')));
+        setTimeout(() => {
+            toast.classList.replace('show','hide');
+            toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+        }, duration);
+    }
 
-        // DOM refs
-        const eventsGrid = document.getElementById('events-grid');
-        const teamGrid = document.getElementById('team-grid');
-        const adminControls = document.getElementById('events-admin-controls');
-        const workerAdminControls = document.getElementById('worker-admin-controls');
-        const openLoginBtn = document.getElementById('open-login-btn');
-        const loginModal = document.getElementById('login-modal');
-        const closeLoginBtn = document.getElementById('close-login-btn');
-        const loginForm = document.getElementById('login-form');
-        const loginErrorMsg = document.getElementById('login-error');
-        const addEventModal = document.getElementById('add-event-modal');
-        const openAddEventBtn = document.getElementById('open-add-event-btn');
-        const closeEventModalBtn = document.getElementById('close-event-modal-btn');
-        const addEventForm = document.getElementById('add-event-form');
-        const submitEventBtn = document.getElementById('submit-event-btn');
-        const addWorkerModal = document.getElementById('add-worker-modal');
-        const openAddWorkerBtn = document.getElementById('open-add-worker-btn');
-        const closeWorkerModalBtn = document.getElementById('close-worker-modal-btn');
-        const addWorkerForm = document.getElementById('add-worker-form');
-        const editWorkerModal = document.getElementById('edit-worker-modal');
-        const closeEditWorkerBtn = document.getElementById('close-edit-worker-btn');
-        const editWorkerForm = document.getElementById('edit-worker-form');
-
-        // Modal toggles
-        openLoginBtn.addEventListener('click', () => { currentWorkerUser ? handleLogout() : (loginModal.style.display='flex', loginErrorMsg.textContent=''); });
-        closeLoginBtn.addEventListener('click', () => loginModal.style.display='none');
-        openAddEventBtn.addEventListener('click', () => addEventModal.style.display='flex');
-        closeEventModalBtn.addEventListener('click', () => addEventModal.style.display='none');
-        openAddWorkerBtn.addEventListener('click', () => addWorkerModal.style.display='flex');
-        closeWorkerModalBtn.addEventListener('click', () => addWorkerModal.style.display='none');
-        closeEditWorkerBtn.addEventListener('click', () => editWorkerModal.style.display='none');
-        window.addEventListener('click', e => {
-            if (e.target === loginModal) loginModal.style.display='none';
-            if (e.target === addEventModal) addEventModal.style.display='none';
-            if (e.target === addWorkerModal) addWorkerModal.style.display='none';
-            if (e.target === editWorkerModal) editWorkerModal.style.display='none';
+    /* =============================================
+       MODAL SYSTEM (animated open/close)
+       ============================================= */
+    function openModal(id) {
+        const el = document.getElementById(id);
+        el.classList.add('is-open');
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-visible')));
+    }
+    function closeModal(id) {
+        const el = document.getElementById(id);
+        el.classList.remove('is-visible');
+        el.addEventListener('transitionend', () => el.classList.remove('is-open'), { once: true });
+    }
+    window.addEventListener('click', e => {
+        ['login-modal','add-event-modal','add-worker-modal','edit-worker-modal'].forEach(id => {
+            if (e.target === document.getElementById(id)) closeModal(id);
         });
+    });
 
-        // Photo preview for add form
-        document.getElementById('worker-photo').addEventListener('change', function() {
-            const prev = document.getElementById('worker-photo-preview');
-            if (this.files[0]) { prev.src = URL.createObjectURL(this.files[0]); prev.style.display='block'; }
-        });
-        document.getElementById('edit-worker-photo').addEventListener('change', function() {
-            const prev = document.getElementById('edit-worker-photo-preview');
-            if (this.files[0]) { prev.src = URL.createObjectURL(this.files[0]); prev.style.display='block'; }
-        });
+    /* =============================================
+       LIGHTBOX
+       ============================================= */
+    function openLightbox(src, caption) {
+        const lb = document.getElementById('lightbox');
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox-caption').textContent = caption || '';
+        lb.classList.add('open');
+    }
+    function closeLightbox(e, force) {
+        if (!force && e && e.target !== document.getElementById('lightbox')) return;
+        const lb = document.getElementById('lightbox');
+        lb.classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(null, true); });
 
-        // Login
-        loginForm.addEventListener('submit', async e => {
-            e.preventDefault();
-            loginErrorMsg.textContent = '';
-            const { data, error } = await supabaseClient.auth.signInWithPassword({
-                email: document.getElementById('login-email').value,
-                password: document.getElementById('login-password').value
-            });
-            if (error) loginErrorMsg.textContent = error.message;
-            else { loginModal.style.display='none'; loginForm.reset(); checkUserStatus(); }
-        });
-
-        async function handleLogout() {
-            await supabaseClient.auth.signOut();
-            checkUserStatus();
-        }
-
-        async function checkUserStatus() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) {
-                currentWorkerUser = session.user;
-                openLoginBtn.textContent = "Log Out";
-                adminControls.style.display = "flex";
-                workerAdminControls.style.display = "flex";
-                // Show edit UI
-                document.querySelectorAll('.bg-change-btn, .bg-change-btn-dark').forEach(b => b.style.display='inline-block');
-                document.getElementById('home-bg-btn').style.display='inline-block';
-                document.getElementById('events-bg-btn').style.display='inline-block';
-                document.getElementById('team-bg-btn').style.display='inline-block';
-                document.getElementById('home-edit-hint').style.display='block';
-                document.getElementById('events-edit-hint').style.display='block';
-                document.getElementById('team-edit-hint').style.display='block';
-                document.getElementById('save-home-text-btn').style.display='inline-block';
-                document.getElementById('save-events-text-btn').style.display='inline-block';
-                document.getElementById('save-team-text-btn').style.display='inline-block';
-                // Enable editing
-                document.getElementById('hero-title').contentEditable = "true";
-                document.getElementById('hero-subtitle').contentEditable = "true";
-                document.getElementById('events-title').contentEditable = "true";
-                document.getElementById('events-subtitle').contentEditable = "true";
-                document.getElementById('team-title').contentEditable = "true";
-                document.getElementById('team-subtitle').contentEditable = "true";
-            } else {
-                currentWorkerUser = null;
-                openLoginBtn.textContent = "Worker Login";
-                adminControls.style.display = "none";
-                workerAdminControls.style.display = "none";
-                document.getElementById('home-bg-btn').style.display='none';
-                document.getElementById('events-bg-btn').style.display='none';
-                document.getElementById('team-bg-btn').style.display='none';
-                document.getElementById('home-edit-hint').style.display='none';
-                document.getElementById('events-edit-hint').style.display='none';
-                document.getElementById('team-edit-hint').style.display='none';
-                document.getElementById('save-home-text-btn').style.display='none';
-                document.getElementById('save-events-text-btn').style.display='none';
-                document.getElementById('save-team-text-btn').style.display='none';
-                document.getElementById('hero-title').contentEditable = "false";
-                document.getElementById('hero-subtitle').contentEditable = "false";
-                document.getElementById('events-title').contentEditable = "false";
-                document.getElementById('events-subtitle').contentEditable = "false";
-                document.getElementById('team-title').contentEditable = "false";
-                document.getElementById('team-subtitle').contentEditable = "false";
+    /* =============================================
+       SCROLL FADE-IN (IntersectionObserver)
+       ============================================= */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
-            fetchEvents();
-            fetchProfiles();
-        }
+        });
+    }, { threshold: 0.12 });
 
-        // ========================
-        // BACKGROUND MANAGEMENT
-        // ========================
-        function setupBgChanger(btnId, inputId, storageKey, targetEl) {
+    /* =============================================
+       AUTH
+       ============================================= */
+    document.getElementById('open-login-btn').addEventListener('click', () => {
+        if (currentUser) handleLogout();
+        else { document.getElementById('login-error').textContent=''; openModal('login-modal'); }
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const errEl = document.getElementById('login-error');
+        errEl.textContent = '';
+        const { error } = await sb.auth.signInWithPassword({
+            email: document.getElementById('login-email').value,
+            password: document.getElementById('login-password').value
+        });
+        if (error) { errEl.textContent = error.message; return; }
+        closeModal('login-modal');
+        document.getElementById('login-form').reset();
+        showToast('Welcome back! You are now logged in.', 'success');
+        checkUserStatus();
+    });
+
+    async function handleLogout() {
+        await sb.auth.signOut();
+        showToast('You have been logged out.', 'info');
+        checkUserStatus();
+    }
+
+    function setEditMode(on) {
+        ['hero-title','hero-subtitle','vision-text','mission-text','events-title','events-subtitle','team-title','team-subtitle']
+            .forEach(id => document.getElementById(id).contentEditable = on ? 'true' : 'false');
+        ['home-bg-btn','events-bg-btn','team-bg-btn','home-edit-hint','events-edit-hint','team-edit-hint',
+         'save-home-text-btn','save-events-text-btn','save-team-text-btn'].forEach(id => {
+            const el = document.getElementById(id);
+            el.style.display = on ? (id.includes('hint') ? 'block' : 'inline-block') : 'none';
+        });
+        ['church-logo-badge','ministry-logo-badge'].forEach(id => {
+            document.getElementById(id).style.cursor = on ? 'pointer' : 'default';
+        });
+    }
+
+    async function checkUserStatus() {
+        const { data: { session } } = await sb.auth.getSession();
+        if (session) {
+            currentUser = session.user;
+            document.getElementById('open-login-btn').textContent = 'Log Out';
+            document.getElementById('events-admin-controls').style.display = 'flex';
+            document.getElementById('worker-admin-controls').style.display = 'flex';
+            setEditMode(true);
+        } else {
+            currentUser = null;
+            document.getElementById('open-login-btn').textContent = 'Worker Login';
+            document.getElementById('events-admin-controls').style.display = 'none';
+            document.getElementById('worker-admin-controls').style.display = 'none';
+            setEditMode(false);
+        }
+        fetchEvents();
+        fetchProfiles();
+    }
+
+    /* =============================================
+       BACKGROUND CHANGERS
+       ============================================= */
+    function setupBgChanger(btnId, inputId, key, selector) {
+        document.getElementById(btnId).addEventListener('click', () => document.getElementById(inputId).click());
+        document.getElementById(inputId).addEventListener('change', async function () {
+            if (!this.files[0]) return;
+            const file = this.files[0], ext = file.name.split('.').pop();
+            const fileName = `${key}-${Date.now()}.${ext}`;
             const btn = document.getElementById(btnId);
-            const input = document.getElementById(inputId);
-            btn.addEventListener('click', () => input.click());
-            input.addEventListener('change', async function() {
-                if (!this.files[0]) return;
-                const file = this.files[0];
-                const ext = file.name.split('.').pop();
-                const fileName = `${storageKey}-${Date.now()}.${ext}`;
-                btn.textContent = 'Uploading...';
-                const { error: upErr } = await supabaseClient.storage.from('site-assets').upload(fileName, file, { upsert: true });
-                if (upErr) { alert('Upload failed: ' + upErr.message); btn.innerHTML='<i class="fa-solid fa-image"></i> Change Background'; return; }
-                const { data: { publicUrl } } = supabaseClient.storage.from('site-assets').getPublicUrl(fileName);
-                // Save to site_settings table
-                await supabaseClient.from('site_settings').upsert({ key: storageKey, value: publicUrl }, { onConflict: 'key' });
-                document.querySelector(targetEl).style.backgroundImage = `url('${publicUrl}')`;
-                btn.innerHTML = '<i class="fa-solid fa-image"></i> Change Background';
-                this.value = '';
-            });
-        }
-
-        setupBgChanger('home-bg-btn', 'home-bg-input', 'home_bg', '.hero');
-        setupBgChanger('events-bg-btn', 'events-bg-input', 'events_bg', '.events-section');
-        setupBgChanger('team-bg-btn', 'team-bg-input', 'team_bg', '.team-section');
-
-        // ========================
-        // TEXT SAVE (HOME, EVENTS, TEAM)
-        // ========================
-        async function saveTextSettings(keys) {
-            for (const [key, elId] of Object.entries(keys)) {
-                const val = document.getElementById(elId).innerHTML;
-                await supabaseClient.from('site_settings').upsert({ key, value: val }, { onConflict: 'key' });
-            }
-            alert('Text saved!');
-        }
-
-        document.getElementById('save-home-text-btn').addEventListener('click', () => saveTextSettings({
-            home_title: 'hero-title',
-            home_subtitle: 'hero-subtitle'
-        }));
-        document.getElementById('save-events-text-btn').addEventListener('click', () => saveTextSettings({
-            events_title: 'events-title',
-            events_subtitle: 'events-subtitle'
-        }));
-        document.getElementById('save-team-text-btn').addEventListener('click', () => saveTextSettings({
-            team_title: 'team-title',
-            team_subtitle: 'team-subtitle'
-        }));
-
-        // Load site settings (backgrounds + text) on init
-        async function loadSiteSettings() {
-            const { data, error } = await supabaseClient.from('site_settings').select('*');
-            if (error || !data) return;
-            data.forEach(row => {
-                if (row.key === 'home_bg' && row.value) document.querySelector('.hero').style.backgroundImage = `url('${row.value}')`;
-                if (row.key === 'events_bg' && row.value) document.querySelector('.events-section').style.backgroundImage = `url('${row.value}')`;
-                if (row.key === 'team_bg' && row.value) document.querySelector('.team-section').style.backgroundImage = `url('${row.value}')`;
-                if (row.key === 'home_title' && row.value) document.getElementById('hero-title').innerHTML = row.value;
-                if (row.key === 'home_subtitle' && row.value) document.getElementById('hero-subtitle').innerHTML = row.value;
-                if (row.key === 'events_title' && row.value) document.getElementById('events-title').innerHTML = row.value;
-                if (row.key === 'events_subtitle' && row.value) document.getElementById('events-subtitle').innerHTML = row.value;
-                if (row.key === 'team_title' && row.value) document.getElementById('team-title').innerHTML = row.value;
-                if (row.key === 'team_subtitle' && row.value) document.getElementById('team-subtitle').innerHTML = row.value;
-            });
-        }
-
-        // ========================
-        // EVENTS
-        // ========================
-        async function fetchEvents() {
-            const { data: events, error } = await supabaseClient.from('events').select('*');
-            if (error) { eventsGrid.innerHTML = `<p style="color:red;">Error connecting to database.</p>`; return; }
-            if (!events || events.length === 0) { eventsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">No upcoming event flyers posted right now.</p>`; return; }
-            eventsGrid.innerHTML = '';
-            events.forEach(event => {
-                const card = document.createElement('div');
-                card.className = 'event-card';
-                if (event.image_url) {
-                    card.innerHTML = `<div class="event-image-wrapper"><img src="${event.image_url}" alt="${event.title || 'Event Flyer'}"></div>
-                    <button class="delete-btn delete-event-btn" onclick="deleteEvent('${event.id}','${event.image_url}')" style="display:${currentWorkerUser?'block':'none'}"><i class="fa-solid fa-trash-can"></i> Delete Flyer</button>`;
-                } else {
-                    card.innerHTML = `<div class="event-text-fallback"><h3>${event.title||'Untitled Event'}</h3><p style="color:var(--text-muted)">No image attached.</p></div>
-                    <button class="delete-btn delete-event-btn" onclick="deleteEvent('${event.id}',null)" style="display:${currentWorkerUser?'block':'none'}"><i class="fa-solid fa-trash-can"></i> Delete Record</button>`;
-                }
-                eventsGrid.appendChild(card);
-            });
-        }
-
-        // ========================
-        // PROFILES
-        // ========================
-        async function fetchProfiles() {
-            const { data: profiles, error } = await supabaseClient.from('profiles').select('*');
-            if (error) { teamGrid.innerHTML = `<p style="color:red;">Error loading profile cards.</p>`; return; }
-            if (!profiles || profiles.length === 0) { teamGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">No active worker profiles found.</p>`; return; }
-            teamGrid.innerHTML = '';
-            profiles.forEach((profile, index) => {
-                const uid = `card-${index}`;
-                const wrap = document.createElement('div');
-                wrap.className = 'card-container';
-                const igLink = profile.instagram ? `<a href="${profile.instagram}" target="_blank"><i class="fa-brands fa-instagram"></i></a>` : `<span style="color:var(--cream-dark);font-size:1.3rem;"><i class="fa-brands fa-instagram"></i></span>`;
-                const fbLink = profile.facebook ? `<a href="${profile.facebook}" target="_blank"><i class="fa-brands fa-facebook"></i></a>` : `<span style="color:var(--cream-dark);font-size:1.3rem;"><i class="fa-brands fa-facebook"></i></span>`;
-                const avatarInner = profile.photo_url
-                    ? `<img src="${profile.photo_url}" alt="${profile.name}">`
-                    : `<i class="fa-solid fa-user-gear avatar-icon"></i>`;
-                wrap.innerHTML = `
-                    <input type="checkbox" id="${uid}" class="card-checkbox">
-                    <div class="card-flipper">
-                        <div class="card-front">
-                            <div class="card-header"></div>
-                            <button class="delete-worker-btn" onclick="deleteProfile('${profile.id}')" style="display:${currentWorkerUser?'flex':'none'}" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
-                            <button class="edit-worker-btn" onclick="openEditWorker(${JSON.stringify(profile).replace(/"/g,'&quot;')})" style="display:${currentWorkerUser?'flex':'none'}" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                            <div class="avatar-wrapper" onclick="${currentWorkerUser?`triggerAvatarUpload('${profile.id}', this)`:''}" title="${currentWorkerUser?'Click to change photo':''}">
-                                ${avatarInner}
-                                <span class="avatar-upload-hint">${currentWorkerUser?'📷 Change':''}${!currentWorkerUser?'':''}</span>
-                            </div>
-                            <div class="profile-info">
-                                <h3>${profile.name}</h3>
-                                <p class="role">${profile.role||'Youth Worker'}</p>
-                                <p class="phone"><i class="fa-solid fa-phone"></i> ${profile.phone||'N/A'}</p>
-                                <div class="social-links">${igLink}${fbLink}</div>
-                            </div>
-                            <label for="${uid}" class="flip-btn">Click for Schedule</label>
-                        </div>
-                        <div class="card-back">
-                            <h3>${profile.name}'s Schedule</h3>
-                            <ul class="schedule-list">
-                                <li><span class="day">Mon:</span><span class="time">${profile.mon||'Unavailable'}</span></li>
-                                <li><span class="day">Wed:</span><span class="time">${profile.wed||'Unavailable'}</span></li>
-                                <li><span class="day">Fri:</span><span class="time">${profile.fri||'Unavailable'}</span></li>
-                            </ul>
-                            <label for="${uid}" class="flip-btn back-btn">Go Back</label>
-                        </div>
-                    </div>`;
-                teamGrid.appendChild(wrap);
-            });
-        }
-
-        // ========================
-        // AVATAR UPLOAD (click photo)
-        // ========================
-        let _avatarUploadTarget = null;
-        let _avatarUploadId = null;
-        const avatarInput = document.createElement('input');
-        avatarInput.type='file'; avatarInput.accept='image/*'; avatarInput.style.display='none';
-        document.body.appendChild(avatarInput);
-        avatarInput.addEventListener('change', async function() {
-            if (!this.files[0] || !_avatarUploadId) return;
-            const file = this.files[0];
-            const ext = file.name.split('.').pop();
-            const fileName = `avatar-${_avatarUploadId}-${Date.now()}.${ext}`;
-            const { error: upErr } = await supabaseClient.storage.from('profile-photos').upload(fileName, file, { upsert: true });
-            if (upErr) { alert('Photo upload failed: ' + upErr.message); return; }
-            const { data: { publicUrl } } = supabaseClient.storage.from('profile-photos').getPublicUrl(fileName);
-            const { error: dbErr } = await supabaseClient.from('profiles').update({ photo_url: publicUrl }).eq('id', _avatarUploadId);
-            if (dbErr) alert('Error saving photo: ' + dbErr.message);
-            else fetchProfiles();
+            btn.textContent = 'Uploading…';
+            const { error } = await sb.storage.from('site-assets').upload(fileName, file, { upsert: true });
+            if (error) { showToast('Background upload failed: ' + error.message, 'error'); btn.innerHTML='<i class="fa-solid fa-image"></i> Change Background'; return; }
+            const { data: { publicUrl } } = sb.storage.from('site-assets').getPublicUrl(fileName);
+            await sb.from('site_settings').upsert({ key, value: publicUrl }, { onConflict: 'key' });
+            document.querySelector(selector).style.backgroundImage = `url('${publicUrl}')`;
+            btn.innerHTML = '<i class="fa-solid fa-image"></i> Change Background';
+            showToast('Background updated!', 'success');
             this.value = '';
         });
+    }
+    setupBgChanger('home-bg-btn',   'home-bg-input',   'home_bg',   '.hero');
+    setupBgChanger('events-bg-btn', 'events-bg-input', 'events_bg', '.events-section');
+    setupBgChanger('team-bg-btn',   'team-bg-input',   'team_bg',   '.team-section');
 
-        function triggerAvatarUpload(profileId, el) {
-            if (!currentWorkerUser) return;
-            _avatarUploadId = profileId;
-            _avatarUploadTarget = el;
-            avatarInput.click();
+    /* =============================================
+       TEXT SAVE
+       ============================================= */
+    async function saveTextSettings(map) {
+        for (const [key, elId] of Object.entries(map)) {
+            await sb.from('site_settings').upsert({ key, value: document.getElementById(elId).innerHTML }, { onConflict: 'key' });
         }
+        showToast('Text saved successfully!', 'success');
+    }
+    document.getElementById('save-home-text-btn').addEventListener('click', () =>
+        saveTextSettings({ home_title:'hero-title', home_subtitle:'hero-subtitle', vision_text:'vision-text', mission_text:'mission-text' }));
+    document.getElementById('save-events-text-btn').addEventListener('click', () =>
+        saveTextSettings({ events_title:'events-title', events_subtitle:'events-subtitle' }));
+    document.getElementById('save-team-text-btn').addEventListener('click', () =>
+        saveTextSettings({ team_title:'team-title', team_subtitle:'team-subtitle' }));
 
-        // ========================
-        // OPEN EDIT WORKER MODAL
-        // ========================
-        function openEditWorker(profile) {
-            document.getElementById('edit-worker-id').value = profile.id;
-            document.getElementById('edit-worker-name').value = profile.name || '';
-            document.getElementById('edit-worker-role').value = profile.role || '';
-            document.getElementById('edit-worker-phone').value = profile.phone || '';
-            document.getElementById('edit-worker-instagram').value = profile.instagram || '';
-            document.getElementById('edit-worker-facebook').value = profile.facebook || '';
-            document.getElementById('edit-worker-mon').value = profile.mon || '';
-            document.getElementById('edit-worker-wed').value = profile.wed || '';
-            document.getElementById('edit-worker-fri').value = profile.fri || '';
-            document.getElementById('edit-worker-old-photo').value = profile.photo_url || '';
-            const prev = document.getElementById('edit-worker-photo-preview');
-            if (profile.photo_url) { prev.src = profile.photo_url; prev.style.display='block'; } else prev.style.display='none';
-            document.getElementById('edit-worker-photo').value = '';
-            editWorkerModal.style.display = 'flex';
-        }
+    /* =============================================
+       SITE SETTINGS LOAD
+       ============================================= */
+    async function loadSiteSettings() {
+        const { data } = await sb.from('site_settings').select('*');
+        if (!data) return;
+        const m = {};
+        data.forEach(r => m[r.key] = r.value);
+        if (m.home_bg)        document.querySelector('.hero').style.backgroundImage = `url('${m.home_bg}')`;
+        if (m.events_bg)      document.querySelector('.events-section').style.backgroundImage = `url('${m.events_bg}')`;
+        if (m.team_bg)        document.querySelector('.team-section').style.backgroundImage = `url('${m.team_bg}')`;
+        if (m.home_title)     document.getElementById('hero-title').innerHTML = m.home_title;
+        if (m.home_subtitle)  document.getElementById('hero-subtitle').innerHTML = m.home_subtitle;
+        if (m.vision_text)    document.getElementById('vision-text').innerHTML = m.vision_text;
+        if (m.mission_text)   document.getElementById('mission-text').innerHTML = m.mission_text;
+        if (m.events_title)   document.getElementById('events-title').innerHTML = m.events_title;
+        if (m.events_subtitle)document.getElementById('events-subtitle').innerHTML = m.events_subtitle;
+        if (m.team_title)     document.getElementById('team-title').innerHTML = m.team_title;
+        if (m.team_subtitle)  document.getElementById('team-subtitle').innerHTML = m.team_subtitle;
+        if (m.church_logo)    setLogo('church', m.church_logo);
+        if (m.ministry_logo)  setLogo('ministry', m.ministry_logo);
+    }
 
-        // SAVE EDIT
-        editWorkerForm.addEventListener('submit', async e => {
-            e.preventDefault();
-            const id = document.getElementById('edit-worker-id').value;
-            const btn = document.getElementById('save-edit-worker-btn');
-            btn.disabled = true; btn.textContent = 'Saving...';
+    /* =============================================
+       LOGO BADGES
+       ============================================= */
+    function setLogo(type, url) {
+        const img = document.getElementById(`${type}-logo-img`);
+        const ph  = document.getElementById(`${type}-logo-ph`);
+        img.src = url; img.style.display = 'block'; ph.style.display = 'none';
+    }
+    async function uploadLogo(type, file) {
+        const ext = file.name.split('.').pop();
+        const fn  = `logo-${type}-${Date.now()}.${ext}`;
+        const { error } = await sb.storage.from('site-assets').upload(fn, file, { upsert: true });
+        if (error) { showToast('Logo upload failed: ' + error.message, 'error'); return; }
+        const { data: { publicUrl } } = sb.storage.from('site-assets').getPublicUrl(fn);
+        await sb.from('site_settings').upsert({ key: `${type}_logo`, value: publicUrl }, { onConflict: 'key' });
+        setLogo(type, publicUrl);
+        showToast(`${type.charAt(0).toUpperCase()+type.slice(1)} logo updated!`, 'success');
+    }
+    ['church','ministry'].forEach(type => {
+        document.getElementById(`${type}-logo-badge`).addEventListener('click', () => {
+            if (!currentUser) return;
+            document.getElementById(`${type}-logo-input`).click();
+        });
+        document.getElementById(`${type}-logo-input`).addEventListener('change', function() {
+            if (this.files[0]) uploadLogo(type, this.files[0]);
+            this.value = '';
+        });
+    });
 
-            let photo_url = document.getElementById('edit-worker-old-photo').value;
-            const photoFile = document.getElementById('edit-worker-photo').files[0];
-            if (photoFile) {
-                const ext = photoFile.name.split('.').pop();
-                const fileName = `avatar-${id}-${Date.now()}.${ext}`;
-                const { error: upErr } = await supabaseClient.storage.from('profile-photos').upload(fileName, photoFile, { upsert: true });
-                if (!upErr) {
-                    const { data: { publicUrl } } = supabaseClient.storage.from('profile-photos').getPublicUrl(fileName);
-                    photo_url = publicUrl;
-                }
+    /* =============================================
+       EVENTS
+       ============================================= */
+    document.getElementById('open-add-event-btn').addEventListener('click', () => openModal('add-event-modal'));
+
+    document.getElementById('add-event-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const title = document.getElementById('event-title').value;
+        const file  = document.getElementById('event-file').files[0];
+        const btn   = document.getElementById('submit-event-btn');
+        if (!file) { showToast('Please select an image.', 'error'); return; }
+        btn.disabled = true; btn.textContent = 'Uploading…';
+        const ext = file.name.split('.').pop();
+        const fn  = `${Date.now()}-${Math.random().toString(36).slice(2,7)}.${ext}`;
+        const { error: upErr } = await sb.storage.from('events-flyers').upload(fn, file);
+        if (upErr) { showToast('Upload failed: '+upErr.message, 'error'); btn.disabled=false; btn.textContent='Upload & Publish'; return; }
+        const { data: { publicUrl } } = sb.storage.from('events-flyers').getPublicUrl(fn);
+        const { error: dbErr } = await sb.from('events').insert([{ title, image_url: publicUrl }]);
+        btn.disabled = false; btn.textContent = 'Upload & Publish';
+        if (dbErr) { showToast('Error saving event: '+dbErr.message, 'error'); return; }
+        closeModal('add-event-modal');
+        document.getElementById('add-event-form').reset();
+        showToast('Event flyer published!', 'success');
+        fetchEvents();
+    });
+
+    async function fetchEvents() {
+        const grid = document.getElementById('events-grid');
+        const { data: events, error } = await sb.from('events').select('*');
+        if (error) { grid.innerHTML = `<p style="color:var(--danger);grid-column:1/-1;text-align:center;">Error loading events.</p>`; return; }
+        if (!events?.length) { grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">No upcoming events posted yet.</p>`; return; }
+        grid.innerHTML = '';
+        events.forEach((ev, i) => {
+            const card = document.createElement('div');
+            card.className = 'event-card';
+            if (ev.image_url) {
+                card.innerHTML = `
+                    <div class="event-image-wrapper" onclick="openLightbox('${ev.image_url}','${(ev.title||'').replace(/'/g,"\\'")}')">
+                        <img src="${ev.image_url}" alt="${ev.title||'Event Flyer'}">
+                    </div>
+                    <button class="delete-btn delete-event-btn" onclick="event.stopPropagation();deleteEvent('${ev.id}','${ev.image_url}')" style="display:${currentUser?'block':'none'}"><i class="fa-solid fa-trash-can"></i> Delete</button>`;
+            } else {
+                card.innerHTML = `
+                    <div class="event-text-fallback"><h3>${ev.title||'Untitled Event'}</h3><p style="color:var(--text-muted)">No image attached.</p></div>
+                    <button class="delete-btn delete-event-btn" onclick="deleteEvent('${ev.id}',null)" style="display:${currentUser?'block':'none'}"><i class="fa-solid fa-trash-can"></i> Delete</button>`;
             }
-
-            const updates = {
-                name: document.getElementById('edit-worker-name').value,
-                role: document.getElementById('edit-worker-role').value,
-                phone: document.getElementById('edit-worker-phone').value,
-                instagram: document.getElementById('edit-worker-instagram').value,
-                facebook: document.getElementById('edit-worker-facebook').value,
-                mon: document.getElementById('edit-worker-mon').value,
-                wed: document.getElementById('edit-worker-wed').value,
-                fri: document.getElementById('edit-worker-fri').value,
-                photo_url
-            };
-
-            const { error } = await supabaseClient.from('profiles').update(updates).eq('id', id);
-            btn.disabled = false; btn.textContent = 'Save Changes';
-            if (error) alert('Error saving: ' + error.message);
-            else { editWorkerModal.style.display='none'; fetchProfiles(); }
+            grid.appendChild(card);
+            setTimeout(() => { card.classList.add('visible'); observer.observe(card); }, 60 + i * 75);
         });
+    }
 
-        // ========================
-        // ADD EVENT
-        // ========================
-        addEventForm.addEventListener('submit', async e => {
-            e.preventDefault();
-            const title = document.getElementById('event-title').value;
-            const file = document.getElementById('event-file').files[0];
-            if (!file) { alert("Please select an image file first."); return; }
-            submitEventBtn.disabled=true; submitEventBtn.textContent="Uploading...";
-            const ext = file.name.split('.').pop();
-            const fileName = `${Date.now()}-${Math.random().toString(36).substring(2,7)}.${ext}`;
-            const { error: upErr } = await supabaseClient.storage.from('events-flyers').upload(fileName, file);
-            if (upErr) { alert("Upload failed: "+upErr.message); submitEventBtn.disabled=false; submitEventBtn.textContent="Upload & Publish Flyer"; return; }
-            const { data: { publicUrl } } = supabaseClient.storage.from('events-flyers').getPublicUrl(fileName);
-            const { error: dbErr } = await supabaseClient.from('events').insert([{ title, image_url: publicUrl }]);
-            submitEventBtn.disabled=false; submitEventBtn.textContent="Upload & Publish Flyer";
-            if (dbErr) alert("Error saving: "+dbErr.message);
-            else { addEventModal.style.display='none'; addEventForm.reset(); fetchEvents(); }
+    async function deleteEvent(id, url) {
+        if (!confirm('Delete this event flyer permanently?')) return;
+        if (url) { const p = url.split('/'); await sb.storage.from('events-flyers').remove([p[p.length-1]]); }
+        const { error } = await sb.from('events').delete().eq('id', id);
+        if (error) { showToast('Error: '+error.message, 'error'); return; }
+        showToast('Event deleted.', 'info');
+        fetchEvents();
+    }
+
+    /* =============================================
+       PROFILES
+       ============================================= */
+    document.getElementById('open-add-worker-btn').addEventListener('click', () => openModal('add-worker-modal'));
+
+    document.getElementById('worker-photo').addEventListener('change', function() {
+        const p = document.getElementById('worker-photo-preview');
+        if (this.files[0]) { p.src = URL.createObjectURL(this.files[0]); p.style.display='block'; }
+    });
+    document.getElementById('edit-worker-photo').addEventListener('change', function() {
+        const p = document.getElementById('edit-worker-photo-preview');
+        if (this.files[0]) { p.src = URL.createObjectURL(this.files[0]); p.style.display='block'; }
+    });
+
+    async function fetchProfiles() {
+        const grid = document.getElementById('team-grid');
+        const { data: profiles, error } = await sb.from('profiles').select('*');
+        if (error) { grid.innerHTML = `<p style="color:var(--danger);grid-column:1/-1;text-align:center;">Error loading profiles.</p>`; return; }
+        if (!profiles?.length) { grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">No worker profiles found.</p>`; return; }
+        grid.innerHTML = '';
+        profiles.forEach((p, i) => {
+            const uid = `card-${i}`;
+            const wrap = document.createElement('div');
+            wrap.className = 'card-container';
+            const ig = p.instagram ? `<a href="${p.instagram}" target="_blank"><i class="fa-brands fa-instagram"></i></a>` : `<span style="color:var(--cream-dark);font-size:1.3rem;"><i class="fa-brands fa-instagram"></i></span>`;
+            const fb = p.facebook  ? `<a href="${p.facebook}"  target="_blank"><i class="fa-brands fa-facebook"></i></a>`  : `<span style="color:var(--cream-dark);font-size:1.3rem;"><i class="fa-brands fa-facebook"></i></span>`;
+            const av = p.photo_url ? `<img src="${p.photo_url}" alt="${p.name}">` : `<i class="fa-solid fa-user-gear avatar-icon"></i>`;
+            wrap.innerHTML = `
+                <input type="checkbox" id="${uid}" class="card-checkbox">
+                <div class="card-flipper">
+                    <div class="card-front">
+                        <div class="card-header"></div>
+                        <button class="delete-worker-btn" onclick="deleteProfile('${p.id}')" style="display:${currentUser?'flex':'none'}" title="Delete"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="edit-worker-btn" onclick='openEditWorker(${JSON.stringify(p).replace(/'/g,"&#39;")})' style="display:${currentUser?'flex':'none'}" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                        <div class="avatar-wrapper" onclick="${currentUser?`triggerAvatarUpload('${p.id}')`:''}" title="${currentUser?'Click to change photo':''}">
+                            ${av}<span class="avatar-upload-hint">${currentUser?'📷 Change':''}</span>
+                        </div>
+                        <div class="profile-info">
+                            <h3>${p.name}</h3>
+                            <p class="role">${p.role||'Youth Worker'}</p>
+                            <p class="phone"><i class="fa-solid fa-phone"></i> ${p.phone||'N/A'}</p>
+                            <div class="social-links">${ig}${fb}</div>
+                        </div>
+                        <label for="${uid}" class="flip-btn">Click for Schedule</label>
+                    </div>
+                    <div class="card-back">
+                        <h3>${p.name}'s Schedule</h3>
+                        <ul class="schedule-list">
+                            <li><span class="day">Mon:</span><span class="time">${p.mon||'Unavailable'}</span></li>
+                            <li><span class="day">Wed:</span><span class="time">${p.wed||'Unavailable'}</span></li>
+                            <li><span class="day">Fri:</span><span class="time">${p.fri||'Unavailable'}</span></li>
+                        </ul>
+                        <label for="${uid}" class="flip-btn back-btn">Go Back</label>
+                    </div>
+                </div>`;
+            grid.appendChild(wrap);
+            setTimeout(() => { wrap.classList.add('visible'); observer.observe(wrap); }, 80 + i * 80);
         });
+    }
 
-        // ========================
-        // ADD WORKER
-        // ========================
-        addWorkerForm.addEventListener('submit', async e => {
-            e.preventDefault();
-            const photoFile = document.getElementById('worker-photo').files[0];
-            let photo_url = null;
+    // Avatar upload on click
+    let _avatarId = null;
+    const avatarInput = document.createElement('input');
+    avatarInput.type = 'file'; avatarInput.accept = 'image/*'; avatarInput.style.display = 'none';
+    document.body.appendChild(avatarInput);
+    avatarInput.addEventListener('change', async function() {
+        if (!this.files[0] || !_avatarId) return;
+        const file = this.files[0], ext = file.name.split('.').pop();
+        const fn = `avatar-${_avatarId}-${Date.now()}.${ext}`;
+        const { error: upErr } = await sb.storage.from('profile-photos').upload(fn, file, { upsert: true });
+        if (upErr) { showToast('Photo upload failed: '+upErr.message, 'error'); return; }
+        const { data: { publicUrl } } = sb.storage.from('profile-photos').getPublicUrl(fn);
+        const { error } = await sb.from('profiles').update({ photo_url: publicUrl }).eq('id', _avatarId);
+        if (error) { showToast('Error saving photo.', 'error'); return; }
+        showToast('Profile photo updated!', 'success');
+        fetchProfiles();
+        this.value = '';
+    });
+    function triggerAvatarUpload(id) { if (!currentUser) return; _avatarId = id; avatarInput.click(); }
 
-            if (photoFile) {
-                const ext = photoFile.name.split('.').pop();
-                const fileName = `avatar-new-${Date.now()}.${ext}`;
-                const { error: upErr } = await supabaseClient.storage.from('profile-photos').upload(fileName, photoFile);
-                if (!upErr) {
-                    const { data: { publicUrl } } = supabaseClient.storage.from('profile-photos').getPublicUrl(fileName);
-                    photo_url = publicUrl;
-                }
-            }
+    // Open edit modal
+    function openEditWorker(profile) {
+        ['id','name','role','phone','instagram','facebook','mon','wed','fri'].forEach(k =>
+            document.getElementById(`edit-worker-${k}`).value = profile[k] || '');
+        document.getElementById('edit-worker-old-photo').value = profile.photo_url || '';
+        const prev = document.getElementById('edit-worker-photo-preview');
+        if (profile.photo_url) { prev.src = profile.photo_url; prev.style.display = 'block'; }
+        else prev.style.display = 'none';
+        document.getElementById('edit-worker-photo').value = '';
+        openModal('edit-worker-modal');
+    }
 
-            const newWorker = {
-                name: document.getElementById('worker-name').value,
-                role: document.getElementById('worker-role').value,
-                phone: document.getElementById('worker-phone').value,
-                instagram: document.getElementById('worker-instagram').value,
-                facebook: document.getElementById('worker-facebook').value,
-                mon: document.getElementById('worker-mon').value,
-                wed: document.getElementById('worker-wed').value,
-                fri: document.getElementById('worker-fri').value,
-                photo_url
-            };
-
-            const { error } = await supabaseClient.from('profiles').insert([newWorker]);
-            if (error) alert("Error adding worker: "+error.message);
-            else { addWorkerModal.style.display='none'; addWorkerForm.reset(); document.getElementById('worker-photo-preview').style.display='none'; fetchProfiles(); }
-        });
-
-        // ========================
-        // DELETE
-        // ========================
-        async function deleteEvent(eventId, imageUrl) {
-            if (!confirm("Delete this event flyer permanently?")) return;
-            if (imageUrl) {
-                const urlParts = imageUrl.split('/');
-                const fileName = urlParts[urlParts.length-1];
-                await supabaseClient.storage.from('events-flyers').remove([fileName]);
-            }
-            const { error } = await supabaseClient.from('events').delete().eq('id', eventId);
-            if (error) alert("Error: "+error.message);
-            else fetchEvents();
+    document.getElementById('edit-worker-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const id  = document.getElementById('edit-worker-id').value;
+        const btn = document.getElementById('save-edit-worker-btn');
+        btn.disabled = true; btn.textContent = 'Saving…';
+        let photo_url = document.getElementById('edit-worker-old-photo').value;
+        const photoFile = document.getElementById('edit-worker-photo').files[0];
+        if (photoFile) {
+            const ext = photoFile.name.split('.').pop();
+            const fn  = `avatar-${id}-${Date.now()}.${ext}`;
+            const { error: upErr } = await sb.storage.from('profile-photos').upload(fn, photoFile, { upsert: true });
+            if (!upErr) { const { data: { publicUrl } } = sb.storage.from('profile-photos').getPublicUrl(fn); photo_url = publicUrl; }
         }
+        const updates = {
+            name: document.getElementById('edit-worker-name').value,
+            role: document.getElementById('edit-worker-role').value,
+            phone: document.getElementById('edit-worker-phone').value,
+            instagram: document.getElementById('edit-worker-instagram').value,
+            facebook: document.getElementById('edit-worker-facebook').value,
+            mon: document.getElementById('edit-worker-mon').value,
+            wed: document.getElementById('edit-worker-wed').value,
+            fri: document.getElementById('edit-worker-fri').value,
+            photo_url
+        };
+        const { error } = await sb.from('profiles').update(updates).eq('id', id);
+        btn.disabled = false; btn.textContent = 'Save Changes';
+        if (error) { showToast('Error saving: '+error.message, 'error'); return; }
+        closeModal('edit-worker-modal');
+        showToast('Worker profile updated!', 'success');
+        fetchProfiles();
+    });
 
-        async function deleteProfile(profileId) {
-            if (!confirm("Delete this worker profile permanently?")) return;
-            const { error } = await supabaseClient.from('profiles').delete().eq('id', profileId);
-            if (error) alert("Error: "+error.message);
-            else fetchProfiles();
+    document.getElementById('add-worker-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const photoFile = document.getElementById('worker-photo').files[0];
+        let photo_url = null;
+        if (photoFile) {
+            const ext = photoFile.name.split('.').pop();
+            const fn  = `avatar-new-${Date.now()}.${ext}`;
+            const { error: upErr } = await sb.storage.from('profile-photos').upload(fn, photoFile);
+            if (!upErr) { const { data: { publicUrl } } = sb.storage.from('profile-photos').getPublicUrl(fn); photo_url = publicUrl; }
         }
+        const worker = {
+            name:      document.getElementById('worker-name').value,
+            role:      document.getElementById('worker-role').value,
+            phone:     document.getElementById('worker-phone').value,
+            instagram: document.getElementById('worker-instagram').value,
+            facebook:  document.getElementById('worker-facebook').value,
+            mon:       document.getElementById('worker-mon').value,
+            wed:       document.getElementById('worker-wed').value,
+            fri:       document.getElementById('worker-fri').value,
+            photo_url
+        };
+        const { error } = await sb.from('profiles').insert([worker]);
+        if (error) { showToast('Error adding worker: '+error.message, 'error'); return; }
+        closeModal('add-worker-modal');
+        document.getElementById('add-worker-form').reset();
+        document.getElementById('worker-photo-preview').style.display = 'none';
+        showToast('Worker profile added!', 'success');
+        fetchProfiles();
+    });
 
-        // ========================
-        // INIT
-        // ========================
-        document.addEventListener("DOMContentLoaded", async () => {
-            await loadSiteSettings();
-            checkUserStatus();
-        });
+    async function deleteProfile(id) {
+        if (!confirm('Delete this worker profile permanently?')) return;
+        const { error } = await sb.from('profiles').delete().eq('id', id);
+        if (error) { showToast('Error: '+error.message, 'error'); return; }
+        showToast('Worker profile deleted.', 'info');
+        fetchProfiles();
+    }
+
+    /* =============================================
+       INIT
+       ============================================= */
+    document.addEventListener('DOMContentLoaded', async () => {
+        await loadSiteSettings();
+        checkUserStatus();
+    });
     </script>
 </body>
 </html>
